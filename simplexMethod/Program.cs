@@ -6,12 +6,109 @@ namespace simplexMethod
     {
         static void Main(string[] args)
         {
-            //int[,] main = new int[,] { { 2, 1, 2, 1 }, { 4, 3, 1, 2 }, { 1, 2, 3, 1 } };
-            //int[] res = new int[] { 20, 10, 30 };
-            //int[] dohod = new int[] { 4, 2, 1, 3 };
-            double[,] main = new double[,] { { 2, 3 }, { 2, 1 }, { 0, 3 }, { 3, 0 } };
-            double[] res = new double[] { 19, 13, 15, 18 };
-            double[] dohod = new double[] { 7, 5 };
+            double[,] main = new double[0,0];
+            double[] res = new double[0], dohod = new double[0];
+            int n = 0, m = 0;
+            Console.WriteLine("1.Мой пример из дока (№9)\n2.Задача 2 с минигрупп (которую делали с Тёмой)\n3.Задача 3 с минигрупп\n4.Настина задача из дока (№7)\n5.Пример с инета\n6.Рандом\n7.Ручной ввод");
+            Console.WriteLine("Введите способ заполнения данных: ");
+            int otv = Convert.ToInt32(Console.ReadLine());
+            switch (otv)
+            {
+                case 1:
+                    //Пример из дока (№9)
+                    main = new double[,] { { 2, 1, 2, 1 }, { 4, 3, 1, 2 }, { 1, 2, 3, 1 } };
+                    res = new double[] { 20, 10, 30 };
+                    dohod = new double[] { 4, 2, 1, 3 };
+                    break;
+                case 2:
+                    //Задача 2 (которую делали с Тёмой)
+                    main = new double[,] { { 2, 3 }, { 2, 1 }, { 0, 3 }, { 3, 0 } };
+                    res = new double[] { 19, 13, 15, 18 };
+                    dohod = new double[] { 7, 5 };
+                    break;
+                case 3:
+                    //Задача 3
+                    main = new double[,] { { 1, 2, 2 }, { 1, 5, 9 }, { 2, 1, 2 } };
+                    res = new double[] { 27, 45, 46 };
+                    dohod = new double[] { 0, 1, 0 };
+                    break;
+                case 4:
+                    //Настина (№7 из дока)
+                    main = new double[,] { { 1, 2 }, { 2, 1 }, { 0, 4 }, { 3, 2 } };
+                    res = new double[] { 4, 6, 8, 2 };
+                    dohod = new double[] { 3, 6 };
+                    break;
+                case 5:
+                    //Пример с инета
+                    main = new double[,] { { -3, 5 }, { -2, 5 }, { 1, 0 }, { 3, -8 } };
+                    res = new double[] { 25, 30, 10, 6 };
+                    dohod = new double[] { 6, 5 };
+                    break;
+                case 6:
+                    //рандом
+                    Console.Write("Введите количество видов изделий: ");
+                    n = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("Введите колчество ресурсов: ");
+                    m = Convert.ToInt32(Console.ReadLine());
+
+                    main = new double[m, n];
+                    res = new double[m];
+                    dohod = new double[n];
+
+                    Random rnd = new Random();
+
+                    for (int i = 0; i < main.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < main.GetLength(1); j++)
+                        {
+                            main[i, j] = rnd.Next(0, 10);
+                        }
+                    }
+
+                    for (int i = 0; i < res.Length; i++)
+                    {
+                        res[i] = rnd.Next(0, 10);
+                    }
+
+                    for (int i = 0; i < dohod.Length; i++)
+                    {
+                        dohod[i] = rnd.Next(1, 10);
+                    }
+                    break;
+                case 7:
+                    //вручную
+                    Console.Write("Введите количество видов изделий: ");
+                    n = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("Введите колчество ресурсов: ");
+                    m = Convert.ToInt32(Console.ReadLine());
+
+                    main = new double[m, n];
+                    res = new double[m];
+                    dohod = new double[n];
+
+                    for (int i = 0; i < main.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < main.GetLength(1); j++)
+                        {
+                            Console.Write($"Введите сколько необходимо ресурса №{j + 1} на изготовление {i + 1} продукта: ");
+                            main[i, j] = Convert.ToDouble(Console.ReadLine());
+                        }
+                    }
+
+                    for (int i = 0; i < res.Length; i++)
+                    {
+                        Console.Write($"Введите запас ресурса №{i + 1}: ");
+                        res[i] = Convert.ToDouble(Console.ReadLine());
+                    }
+
+                    for (int i = 0; i < dohod.Length; i++)
+                    {
+                        Console.Write($"Введите какая прибыль с реалзации продукта №{i + 1}: ");
+                        dohod[i] = Convert.ToDouble(Console.ReadLine());
+                    }
+                    break;
+            }
+            
             int temp = main.GetLength(1) + 1, dop = temp;
             double[] ans = new double[0];
             //output math model
@@ -119,7 +216,7 @@ namespace simplexMethod
             }
 
             //промежуточные
-            simplex.intermediate(Table, ans, 0);
+            simplex.intermediate(Table, ref ans, 0);
 
             //поиск индексов решающего элемента
             bool check = false;
@@ -129,8 +226,14 @@ namespace simplexMethod
             {
                 col = simplex.decisiveColumn(Table);
                 row = simplex.decisiveRow(Table, col);
+
+                Console.WriteLine($"Разрешающий столбец: {col + 1}");
+                Console.WriteLine($"Разрешающая строка: {row + 1}");
+                
                 simplex.solve(ref Table, row, col);
-                simplex.intermediate(Table, ans, o + 1);
+
+                simplex.intermediate(Table, ref ans, o + 1);
+
                 for (int j = 0; j < Table.GetLength(1); j++)
                 {
                     if(Table[Table.GetLength(0) - 1, j] > 0 && Table[Table.GetLength(0) - 1, j] != 0)
@@ -149,11 +252,22 @@ namespace simplexMethod
                 }
                 o++;
             }
+            simplex.finalResults(main.GetLength(1), ans, Table);
         }
     }
 
     class simplex
     {
+        public static void finalResults(double r, double[] a, double[,] b)
+        {
+            Console.WriteLine("\nОкончательные результаты:");
+            for (int i = 0; i < r; i++)
+            {
+                Console.WriteLine($"x{i + 1} = {a[i]}");
+            }
+            Console.WriteLine($"F = {Math.Abs(b[b.GetLength(0) - 1, b.GetLength(1) - 1])}");
+        }
+
         public static void solve(ref double[,] a, int row, int col)
         {
             double var = a[row, col];
@@ -241,9 +355,10 @@ namespace simplexMethod
             }
         }
 
-        public static void intermediate(double[,] a, double[] b, int o)
+        public static void intermediate(double[,] a, ref double[] b, int o)
         {
-            if(o == 0)
+            Array.Resize(ref b, 0);
+            if (o == 0)
             {
                 Console.WriteLine($"\n1-ая симплекс-таблица:");
             }
@@ -297,7 +412,6 @@ namespace simplexMethod
             }
             Console.WriteLine($"F' = {a[a.GetLength(0) - 1, a.GetLength(1) - 1]}");
             Console.WriteLine($"F = {Math.Abs(a[a.GetLength(0) - 1, a.GetLength(1) - 1])}");
-            Array.Resize(ref b, 0);
         }
     }
 }
