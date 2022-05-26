@@ -6,12 +6,47 @@ namespace simplexMethod
     {
         static void Main(string[] args)
         {
+            /*
+            Что осталось сделать:
+                ++ условия на ввод данных (>0)
+                ++ защита от дурака (try catch)
+                ++ условие задачи
+                повтор выполнения программы
+                ++ round в промежуточных и окончательных результатах
+                ++ переделать вывод граничных условий
+                переименовать некоторые переменные и массивы
+                нужно ли чтобы в строке сумма необходимого количесотва ресурсов было меньше общего запаса ресурсов
+                
+                .
+                0b.
+                011b.
+                01010b
+                0100101b.
+                101101001b
+                P " '0
+                     '0
+                      '0
+                
+            */
+            Console.WriteLine("Некоторое производство выпускает продукцию двух видов: П1 и П2. Изготавливается она из четырех видов сырья: S1;S2;S3;S4. Запас сырья и расход его на единицу продукции задается таблицей:\nТаблицу см. в документе\nДоход от производства и реализации единицы продукции вида П1 равен 3 денежным единицам, а от единицы продукции вида П2 - 6 денежным единицам.\nКак следует спланировать выпуск продукции, чтобы доход предприятия был наибольшим?");
+
             double[,] main = new double[0,0];
             double[] res = new double[0], dohod = new double[0];
-            int n = 0, m = 0;
+            int n = 0, m = 0, otv = 0;
             Console.WriteLine("1.Мой пример из дока (№9)\n2.Задача 2 с минигрупп (которую делали с Тёмой)\n3.Задача 3 с минигрупп\n4.Настина задача из дока (№7)\n5.Пример с инета\n6.Рандом\n7.Ручной ввод");
-            Console.WriteLine("Введите способ заполнения данных: ");
-            int otv = Convert.ToInt32(Console.ReadLine());
+            metka: Console.Write("Введите способ заполнения данных: ");
+            while (true)
+            {
+                try
+                {
+                    otv = Convert.ToInt32(Console.ReadLine());
+                    break;
+                }
+                catch
+                {
+                    Console.Write("Вам необходимо ввести число!\nПовторите ввод: ");
+                }
+            }  
             switch (otv)
             {
                 case 1:
@@ -46,10 +81,59 @@ namespace simplexMethod
                     break;
                 case 6:
                     //рандом
-                    Console.Write("Введите количество видов изделий: ");
-                    n = Convert.ToInt32(Console.ReadLine());
-                    Console.Write("Введите колчество ресурсов: ");
-                    m = Convert.ToInt32(Console.ReadLine());
+                    while (true)
+                    {
+                        try
+                        {
+                            int a = 0;
+                            while (true)
+                            {
+                                Console.Write("Введите количество видов изделий: ");
+                                a = Convert.ToInt32(Console.ReadLine());
+                                if (a > 0)
+                                {
+                                    n = a;
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Количество изделий априори не может быть отрицательным числом..");
+                                }
+                            }
+                            break;
+                        }
+                        catch
+                        {
+                            Console.WriteLine($"Количество видов изделий - численное значение, а вы ввели..\nВведите еще раз!");
+                        }
+                    }
+                    while (true)
+                    {
+                        try
+                        {
+                            int a = 0;
+                            while (true)
+                            {
+                                Console.Write("Введите колчество ресурсов: ");
+                                a = Convert.ToInt32(Console.ReadLine());
+                                if (a > 0)
+                                {
+                                    m = a;
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Количество ресурсов априори не может быть отрицательным числом..");
+                                }
+                            }
+                            
+                            break;
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Количество видов ресурсов тоже число, прямо как количество видов изделий..\nВам необходимо повторить ввод");
+                        }
+                    }
 
                     main = new double[m, n];
                     res = new double[m];
@@ -77,36 +161,160 @@ namespace simplexMethod
                     break;
                 case 7:
                     //вручную
-                    Console.Write("Введите количество видов изделий: ");
-                    n = Convert.ToInt32(Console.ReadLine());
-                    Console.Write("Введите колчество ресурсов: ");
-                    m = Convert.ToInt32(Console.ReadLine());
+                    while (true)
+                    {
+                        try
+                        {
+                            int a = 0;
+                            while (true)
+                            {
+                                Console.Write("Введите количество видов изделий: ");
+                                a = Convert.ToInt32(Console.ReadLine());
+                                if (a > 0)
+                                {
+                                    n = a;
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Количество изделий априори не может быть отрицательным числом..");
+                                }
+                            }
+                            break;
+                        }
+                        catch
+                        {
+                            Console.WriteLine($"Количество видов изделий - численное значение, а вы ввели..\nВведите еще раз!");
+                        }
+                    }
+                    while (true)
+                    {
+                        try
+                        {
+                            int a = 0;
+                            while (true)
+                            {
+                                Console.Write("Введите колчество ресурсов: ");
+                                a = Convert.ToInt32(Console.ReadLine());
+                                if (a > 0)
+                                {
+                                    m = a;
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Количество ресурсов априори не может быть отрицательным числом..");
+                                }
+                            }
+                            break;
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Количество видов ресурсов тоже число, прямо как количество видов изделий..\nВам необходимо повторить ввод");
+                        }
+                    }
 
                     main = new double[m, n];
                     res = new double[m];
                     dohod = new double[n];
+                    double h = 0;
 
                     for (int i = 0; i < main.GetLength(0); i++)
                     {
                         for (int j = 0; j < main.GetLength(1); j++)
                         {
-                            Console.Write($"Введите сколько необходимо ресурса №{j + 1} на изготовление {i + 1} продукта: ");
-                            main[i, j] = Convert.ToDouble(Console.ReadLine());
+                            while (true)
+                            {
+                                try
+                                {
+                                    while (true)
+                                    {
+                                        Console.Write($"Введите сколько необходимо ресурса №{j + 1} на изготовление {i + 1} продукта: ");
+                                        h = Convert.ToDouble(Console.ReadLine());
+                                        if (h >= 0)
+                                        {
+                                            main[i, j] = h;
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($"То есть от производства {i + 1} продукта ресурс {j + 1} будет пополняться?\nБраво)\nПовторите ввод");
+                                        }
+                                    }
+                                    break;
+                                }
+                                catch
+                                {
+                                    Console.WriteLine("Вам необходимо ввести число!\nНи букву, ни специальный символ, а число!\nПовторите ввод");
+                                }
+                            }
                         }
                     }
 
                     for (int i = 0; i < res.Length; i++)
                     {
-                        Console.Write($"Введите запас ресурса №{i + 1}: ");
-                        res[i] = Convert.ToDouble(Console.ReadLine());
+                        while (true)
+                        {
+                            try
+                            {
+                                while (true)
+                                {
+                                    Console.Write($"Введите запас ресурса №{i + 1}: ");
+                                    h = Convert.ToDouble(Console.ReadLine());
+                                    if (h >= 0)
+                                    {
+                                        res[i] = h;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Одна из ситуаций, когда ресурс идет не от поставщика, а к поставщику\nПовторите ввод");
+                                    }
+                                }
+                                break;
+                            }
+                            catch
+                            {
+                                Console.WriteLine("Необходимо ввести число!\nПовторите ввод");
+                            }
+                        }
+                        
                     }
 
                     for (int i = 0; i < dohod.Length; i++)
                     {
-                        Console.Write($"Введите какая прибыль с реалзации продукта №{i + 1}: ");
-                        dohod[i] = Convert.ToDouble(Console.ReadLine());
+                        while (true)
+                        {
+                            try
+                            {
+                                while (true)
+                                {
+                                    Console.Write($"Введите прибыль с реалзации продукта №{i + 1}: ");
+                                    h = Convert.ToDouble(Console.ReadLine());
+                                    if (h >= 0)
+                                    {
+                                        dohod[i] = h;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Прибыль на то и прибыль, что она должна быть больше нуля\nПовторите ввод");
+                                    }
+                                }
+                                break;
+                            }
+                            catch
+                            {
+                                Console.WriteLine("Необходимо ввести число!\nПовторите ввод");
+                            }
+                        }
+                        
                     }
+
                     break;
+                default:
+                    Console.WriteLine("Такого варианта вам не предоставлялось..\nПовторите ввод");
+                    goto metka;
             }
             
             int temp = main.GetLength(1) + 1, dop = temp;
@@ -141,7 +349,19 @@ namespace simplexMethod
                 }
                 Console.WriteLine();
             }
-            Console.WriteLine($"\tx1,2 >= 0\n");
+            Console.Write($"\tx");
+            for (int i = 0; i < main.GetLength(1); i++)
+            {
+                if(i != main.GetLength(1) - 1)
+                {
+                    Console.Write($"{i + 1},");
+                }
+                else
+                {
+                    Console.Write($"{i + 1}");
+                }
+            }
+            Console.WriteLine($" >= 0\n");
 
             //output canonical mainimization task
             Console.WriteLine("Каноническая задача минимизации, составленная по условию задачи:");
@@ -173,7 +393,19 @@ namespace simplexMethod
                 }
                 Console.WriteLine();
             }
-            Console.Write($"\tx1,2 >= 0; x");
+            Console.Write($"\tx");
+            for (int i = 0; i < main.GetLength(1); i++)
+            {
+                if(i == main.GetLength(1) - 1)
+                {
+                    Console.Write($"{i + 1}");
+                }
+                else
+                {
+                    Console.Write($"{i + 1},");
+                }
+            }
+            Console.Write($" >= 0; x");
             while (dop != temp)
             {
                 if (dop + 1 != temp)
@@ -265,7 +497,7 @@ namespace simplexMethod
             {
                 Console.WriteLine($"x{i + 1} = {a[i]}");
             }
-            Console.WriteLine($"F = {Math.Abs(b[b.GetLength(0) - 1, b.GetLength(1) - 1])}");
+            Console.WriteLine($"F = {Math.Round(Math.Abs(b[b.GetLength(0) - 1, b.GetLength(1) - 1]), 3)}");
         }
 
         public static void solve(ref double[,] a, int row, int col)
@@ -410,8 +642,8 @@ namespace simplexMethod
             {
                 Console.WriteLine($"x{i + 1} = {b[i]}");
             }
-            Console.WriteLine($"F' = {a[a.GetLength(0) - 1, a.GetLength(1) - 1]}");
-            Console.WriteLine($"F = {Math.Abs(a[a.GetLength(0) - 1, a.GetLength(1) - 1])}");
+            Console.WriteLine($"F' = {Math.Round(a[a.GetLength(0) - 1, a.GetLength(1) - 1], 3)}");
+            Console.WriteLine($"F = {Math.Round(Math.Abs(a[a.GetLength(0) - 1, a.GetLength(1) - 1]), 3)}");
         }
     }
 }
